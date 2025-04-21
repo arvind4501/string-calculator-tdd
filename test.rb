@@ -11,3 +11,4 @@ puts calculator.add("1\n2\n3,4\n5") # => 15
 puts calculator.add("//;\n1;2")     # => 3
 puts calculator.add("//x\n4x5")     # => 9
 puts calculator.add("//,\n1,2,3,4") # => 10
+puts calculator.add("2,1001")       # => 2

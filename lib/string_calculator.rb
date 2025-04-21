@@ -28,6 +28,9 @@ class StringCalculator
       raise NegativeNumberError, "negative numbers not allowed: #{negatives.join(', ')}"
     end
 
+    # Ignore numbers greater than 1000
+    numbers = numbers.reject { |num| num > 1000 }
+
     numbers.sum
   end
 end
