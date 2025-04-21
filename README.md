@@ -11,4 +11,5 @@ The String Calculator should:
 - Handle new lines between numbers
 - Support custom delimiters
 - Throw exception for negative numbers
+- Ignore numbers > 1000
 
