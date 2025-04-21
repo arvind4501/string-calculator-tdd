@@ -27,5 +27,17 @@ RSpec.describe StringCalculator do
     it 'returns the sum for numbers with mixed delimiters' do
       expect(calculator.add("1\n2\n3,4\n5")).to eq(15)
     end
+
+    it 'supports custom delimiters' do
+      expect(calculator.add("//;\n1;2")).to eq(3)
+    end
+
+    it 'supports custom delimiter x' do
+      expect(calculator.add("//x\n4x5")).to eq(9)
+    end
+
+    it 'supports custom delimiter , (comma)' do
+      expect(calculator.add("//,\n1,2,3,4")).to eq(10)
+    end
   end
 end
