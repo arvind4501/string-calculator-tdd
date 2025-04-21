@@ -3,6 +3,6 @@ source 'https://rubygems.org'
 gem 'rspec'
 gem 'bundler'
 
-group :development do
+group :development, :test do
   gem "byebug"
 end
