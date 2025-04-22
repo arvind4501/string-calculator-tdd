@@ -83,5 +83,43 @@ RSpec.describe StringCalculator do
     it 'raises error for missing newline after delimiter line' do
       expect { calculator.add("//[***]1***2***3") }.to raise_error(StandardError)
     end
+
+    context "when using multiple delimiters" do
+      it "supports multiple delimiters like //[[]][***][%]" do
+        expect(calculator.add("//[[]][***][%]\n1[]2***3%4")).to eq(10)
+      end
+
+      it "supports multiple delimiters like //[*][%]" do
+        expect(calculator.add("//[*][%]\n1*2%3")).to eq(6)
+      end
+
+      it "supports multiple delimiters with different characters" do
+        expect(calculator.add("//[**][%%]\n1**2%%3")).to eq(6)
+      end
+
+      it "handles delimiters with special characters" do
+        expect(calculator.add("//[*][%%][#]\n1*2%%3#4")).to eq(10)
+      end
+
+      it "works with longer delimiters" do
+        expect(calculator.add("//[*][***]\n1*2***3")).to eq(6)
+      end
+
+      it "correctly handles multiple delimiters and splits the string" do
+        expect(calculator.add("//[*][%][#]\n1*2%3#4")).to eq(10)
+      end
+
+      it "correctly processes multiple delimiters with no spaces" do
+        expect(calculator.add("//[*][#][%]\n1*2#3%4")).to eq(10)
+      end
+
+      it "handles mixed short and long delimiters" do
+        expect(calculator.add("//[*][****]\n1*2****3")).to eq(6)
+      end
+
+      it "handles multiple delimiters with no numbers" do
+        expect(calculator.add("//[*][%]\n")).to eq(0)
+      end
+    end
   end
 end

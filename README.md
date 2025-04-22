@@ -2,7 +2,7 @@
 
 This repository contains the implementation of the String Calculator Kata using Test-Driven Development (TDD) principles.
 
-## Requirements
+## Functionality Overview
 
 The String Calculator should:
 
@@ -12,4 +12,6 @@ The String Calculator should:
 - Support custom delimiters
 - Throw exception for negative numbers
 - Ignore numbers > 1000
+- Support any length of Delimiters
+- Allow multiple delimiters
 
