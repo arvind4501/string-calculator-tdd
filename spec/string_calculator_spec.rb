@@ -121,5 +121,9 @@ RSpec.describe StringCalculator do
         expect(calculator.add("//[*][%]\n")).to eq(0)
       end
     end
+
+    it "supports multiple multi-character delimiters" do
+      expect(calculator.add("//[*******][%%][@@]\n1*******2%%3@@4")).to eq(10)
+    end
   end
 end
