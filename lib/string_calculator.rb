@@ -15,11 +15,7 @@ class StringCalculator
         raise StandardError, "Missing closing bracket in delimiter"
       end
 
-      custom_delims = if header.include?("[")
-                        extract_delimiters(header)
-                      else
-                        [header[2..]]
-                      end
+      custom_delims = parse_custom_delimiters(header)
 
       delimiter = Regexp.union(delimiter, *custom_delims.map { |d| Regexp.new(Regexp.escape(d)) })
     end
@@ -30,9 +26,7 @@ class StringCalculator
 
     # Handle negative numbers
     negatives = numbers.select { |num| num < 0 }
-    if negatives.any?
-      raise NegativeNumberError, "negative numbers not allowed: #{negatives.join(', ')}"
-    end
+    raise NegativeNumberError, "negative numbers not allowed: #{negatives.join(', ')}" if negatives.any?
 
     # Ignore numbers greater than 1000
     numbers = numbers.reject { |num| num > 1000 }
@@ -46,6 +40,14 @@ class StringCalculator
     header.scan(/\[(.*?)\]/).flatten.map do |delimiter|
       # Ensure we handle `[]` correctly, and not just `[` or `]` in nested cases
       delimiter.gsub(/\[|\]/, '')
+    end
+  end
+
+  def parse_custom_delimiters(header)
+    if header.include?("[")
+      extract_delimiters(header)
+    else
+      [header[2..]]
     end
   end
 end
