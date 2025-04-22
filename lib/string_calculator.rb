@@ -6,15 +6,18 @@ class StringCalculator
   def add(numbers)
     return 0 if numbers.empty?
 
-    numbers.split(/[\n,]/).map(&:to_i).sum
-
     delimiter = /[\n,]/
 
     if numbers.start_with?("//")
       header, numbers = numbers.split("\n", 2)
 
-      custom_delim = header[2..]
-      delimiter = Regexp.union(delimiter, Regexp.escape(custom_delim))
+      custom_delim = if header.include?("[")
+        header[/^\s*\/\/\[(.+)\]\s*$/, 1]
+      else
+        header[2..]
+      end
+
+      delimiter = Regexp.union(delimiter, Regexp.new(Regexp.escape(custom_delim)))
     end
 
     numbers = numbers

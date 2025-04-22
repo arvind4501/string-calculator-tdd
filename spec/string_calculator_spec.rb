@@ -51,5 +51,37 @@ RSpec.describe StringCalculator do
     it 'ignores numbers greater than 1000' do
       expect(calculator.add("2,1001")).to eq(2)
     end
+
+    it 'supports custom delimiters of any length' do
+      expect(calculator.add("//[***]\n1***2***3")).to eq(6)
+    end
+
+    it 'supports custom delimiter with special regex characters' do
+      expect(calculator.add("//[.]\n2.3")).to eq(5)
+    end
+
+    it 'supports delimiter that contains brackets inside' do
+      expect(calculator.add("//[[]]\n1[]2[]3")).to eq(6)
+    end
+
+    it 'handles delimiter that looks like a number' do
+      expect(calculator.add("//[123]\n11232123")).to eq(3)
+    end
+
+    it 'raises error for delimiter missing closing bracket' do
+      expect { calculator.add("//[***\n1***2***3") }.to raise_error(StandardError)
+    end
+
+    it 'raises error for missing newline after delimiter line' do
+      expect { calculator.add("//[***]1***2***3") }.to raise_error(StandardError)
+    end
+
+    it 'supports delimiter with multiple special characters' do
+      expect(calculator.add("//[*+?.]\n1*+?.2*+?.3")).to eq(6)
+    end
+
+    it 'raises error for missing newline after delimiter line' do
+      expect { calculator.add("//[***]1***2***3") }.to raise_error(StandardError)
+    end
   end
 end
