@@ -40,8 +40,6 @@ The String Calculator should:
     ``` bash
     bundle exec rspec
 
-
-
 ## Sample Usage
 
 You can run `test.rb` to try out some **predefined test cases** for the String Calculator.
